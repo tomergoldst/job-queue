@@ -1,5 +1,29 @@
 apply plugin: 'com.android.library'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'job-queue'
+
+    publishedGroupId = 'com.tomergoldst.android'
+    libraryName = 'JobQueue'
+    artifact = 'jobqueue'
+
+    libraryDescription = 'persisted job queue for android'
+
+    siteUrl = 'https://github.com/tomergoldst/job-queue'
+    gitUrl = 'https://github.com/tomergoldst/job-queue.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'tomergoldst'
+    developerName = 'Tomer Goldstein'
+    developerEmail = 'tomergoldst2@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -26,6 +50,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

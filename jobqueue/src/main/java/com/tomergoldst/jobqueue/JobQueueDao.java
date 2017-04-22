@@ -54,7 +54,6 @@ class JobQueueDao {
         // Set information to store
         ContentValues values = new ContentValues();
         values.put(JobQueueDbContract.JobEntry.COLUMN_NAME, jobTask.getName());
-        values.put(JobQueueDbContract.JobEntry.COLUMN_PARAMS, jobTask.getParams());
         values.put(JobQueueDbContract.JobEntry.COLUMN_DATA, jobTask.getData());
         values.put(JobQueueDbContract.JobEntry.COLUMN_CREATED_AT, jobTask.getCreatedAt());
 
@@ -85,11 +84,10 @@ class JobQueueDao {
         if (cursor.moveToFirst()) {
             long id = cursor.getLong(cursor.getColumnIndex(JobQueueDbContract.JobEntry._ID));
             String name = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_NAME));
-            String params = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_PARAMS));
             String data = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_DATA));
             long createdAt = cursor.getLong(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_CREATED_AT));
 
-            JobTask = new JobTask(id, name, params, data, createdAt);
+            JobTask = new JobTask(id, name, data, createdAt);
         }
 
         cursor.close();
@@ -113,11 +111,10 @@ class JobQueueDao {
 
             long id = cursor.getLong(cursor.getColumnIndex(JobQueueDbContract.JobEntry._ID));
             String name = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_NAME));
-            String params = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_PARAMS));
             String data = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_DATA));
             long createdAt = cursor.getLong(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_CREATED_AT));
 
-            JobTask jobTask = new JobTask(id, name, params, data, createdAt);
+            JobTask jobTask = new JobTask(id, name, data, createdAt);
             jobsList.add(jobTask);
 
             cursor.moveToNext();
@@ -145,11 +142,10 @@ class JobQueueDao {
 
             long id = cursor.getLong(cursor.getColumnIndex(JobQueueDbContract.JobEntry._ID));
             String _name = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_NAME));
-            String params = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_PARAMS));
             String data = cursor.getString(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_DATA));
             long createdAt = cursor.getLong(cursor.getColumnIndex(JobQueueDbContract.JobEntry.COLUMN_CREATED_AT));
 
-            JobTask jobTask = new JobTask(id, _name, params, data, createdAt);
+            JobTask jobTask = new JobTask(id, _name, data, createdAt);
             jobsList.add(jobTask);
 
             cursor.moveToNext();
@@ -163,7 +159,6 @@ class JobQueueDao {
         // Set information to store
         ContentValues values = new ContentValues();
         values.put(JobQueueDbContract.JobEntry.COLUMN_NAME, jobTask.getName());
-        values.put(JobQueueDbContract.JobEntry.COLUMN_PARAMS, jobTask.getParams());
         values.put(JobQueueDbContract.JobEntry.COLUMN_DATA, jobTask.getData());
         values.put(JobQueueDbContract.JobEntry.COLUMN_CREATED_AT, jobTask.getCreatedAt());
 

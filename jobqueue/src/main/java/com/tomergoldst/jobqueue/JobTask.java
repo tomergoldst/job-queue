@@ -23,15 +23,9 @@ public class JobTask {
         this.createdAt = new Date().getTime();
     }
 
-    public JobTask(String name, String params, String data) {
-        this(name, data);
-        this.params = params;
-    }
-
-    JobTask(long id, String name, String params, String data, long createdAt) {
+    JobTask(long id, String name, String data, long createdAt) {
         this.id = id;
         this.name = name;
-        this.params = params;
         this.data = data;
         this.createdAt = createdAt;
     }
@@ -41,7 +35,6 @@ public class JobTask {
         return "JobTask{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", params='" + params + '\'' +
                 ", data='" + data + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
@@ -61,14 +54,6 @@ public class JobTask {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getParams() {
-        return params;
-    }
-
-    public void setParams(String params) {
-        this.params = params;
     }
 
     public String getData() {

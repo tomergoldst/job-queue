@@ -12,7 +12,7 @@ class JobQueueDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "com.tomergoldst.jq.db";
+    private static final String DATABASE_NAME = "com.tomergoldst.jobqueue.db";
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
@@ -23,7 +23,6 @@ class JobQueueDbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + JobQueueDbContract.JobEntry.TABLE_NAME + " (" +
                     JobQueueDbContract.JobEntry._ID + " INTEGER PRIMARY KEY," +
                     JobQueueDbContract.JobEntry.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
-                    JobQueueDbContract.JobEntry.COLUMN_PARAMS + TEXT_TYPE + COMMA_SEP +
                     JobQueueDbContract.JobEntry.COLUMN_DATA + TEXT_TYPE + COMMA_SEP +
                     JobQueueDbContract.JobEntry.COLUMN_CREATED_AT + INTEGER_TYPE +
             " )";

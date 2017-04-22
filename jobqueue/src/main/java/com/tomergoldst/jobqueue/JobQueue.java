@@ -1,6 +1,7 @@
 package com.tomergoldst.jobqueue;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class JobQueue {
         return DatabaseManager.getInstance().getNextJob(context);
     }
 
-    public static void cancel(Context context, JobTask jobTask){
+    public static void cancel(Context context, @NonNull JobTask jobTask){
         DatabaseManager.getInstance().deleteJob(context, jobTask);
     }
 

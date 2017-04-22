@@ -16,7 +16,6 @@ class JobQueueDbContract {
     static abstract class JobEntry implements BaseColumns {
         static final String TABLE_NAME = "job_queue";
         static final String COLUMN_NAME = "name";
-        static final String COLUMN_PARAMS = "params";
         static final String COLUMN_DATA = "data";
         static final String COLUMN_CREATED_AT = "created_at";
     }
@@ -25,7 +24,6 @@ class JobQueueDbContract {
         return new String[]{
                 JobEntry._ID,
                 JobEntry.COLUMN_NAME,
-                JobEntry.COLUMN_PARAMS,
                 JobEntry.COLUMN_DATA,
                 JobEntry.COLUMN_CREATED_AT
         };
