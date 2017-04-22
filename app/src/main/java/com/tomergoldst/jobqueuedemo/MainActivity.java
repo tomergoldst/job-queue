@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.facebook.stetho.Stetho;
 import com.tomergoldst.jobqueue.JobQueue;
 import com.tomergoldst.jobqueue.JobTask;
 
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Stetho.initializeWithDefaults(getApplicationContext());
+        //Stetho.initializeWithDefaults(getApplicationContext());
 
         Button addJobBtn = (Button) findViewById(R.id.button_add_job);
         Button cancelAllBtn = (Button) findViewById(R.id.button_cancel_all);
