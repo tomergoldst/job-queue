@@ -215,4 +215,16 @@ class JobQueueDao {
         return true;
     }
 
+    void clear() {
+        long rows = database.delete(JobQueueDbContract.JobEntry.TABLE_NAME,
+                null, null);
+
+        // If no rows where deleted
+        if (rows == 0){
+            Log.i(TAG,"job queue is empty");
+        }
+
+        Log.i(TAG, "job queue cleared");
+    }
+
 }

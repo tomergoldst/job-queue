@@ -69,12 +69,24 @@ class DatabaseManager {
     }
 
     /**
+     * clear Jobs from database
+     * @param ctx context
+     * @return
+     */
+    synchronized void clear(Context ctx) {
+        JobQueueDao jobQueueDao = JobQueueDao.getInstance(ctx);
+        jobQueueDao.open();
+        jobQueueDao.clear();
+        jobQueueDao.close();
+    }
+
+    /**
      * Update jobTask data
      * @param ctx context
      * @param jobTask jobTask
      * @return
      */
-    synchronized boolean updateJobItem(Context ctx, JobTask jobTask) {
+    synchronized boolean updateJob(Context ctx, JobTask jobTask) {
         JobQueueDao jobQueueDao = JobQueueDao.getInstance(ctx);
         jobQueueDao.open();
         boolean success = jobQueueDao.update(jobTask);

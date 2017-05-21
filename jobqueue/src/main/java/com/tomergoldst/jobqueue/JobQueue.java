@@ -27,17 +27,20 @@ public class JobQueue {
         DatabaseManager.getInstance().deleteJob(context, jobTask);
     }
 
-    public static void cancelAll(Context context){
-        List<JobTask> jobTasks = DatabaseManager.getInstance().getJobs(context);
-        if (jobTasks != null) {
-            for (JobTask jobTask : jobTasks) {
-                cancel(context, jobTask);
-            }
-        }
+    public static void clear(Context context){
+        DatabaseManager.getInstance().clear(context);
     }
 
     public static void Completed(Context context, JobTask jobTask){
         cancel(context, jobTask);
+    }
+
+    public static List<JobTask> getJobs(Context context){
+        return DatabaseManager.getInstance().getJobs(context);
+    }
+
+    public static List<JobTask> getJob(Context context, String name){
+        return DatabaseManager.getInstance().getJob(context, name);
     }
 
 }
