@@ -41,16 +41,12 @@ public class JobQueue {
         return DatabaseManager.getInstance().getNextJob(mContext);
     }
 
-    public void cancel(@NonNull JobTask jobTask){
+    public void remove(@NonNull JobTask jobTask){
         DatabaseManager.getInstance().deleteJob(mContext, jobTask);
     }
 
     public void clear(){
         DatabaseManager.getInstance().clear(mContext);
-    }
-
-    public void Completed(JobTask jobTask){
-        cancel(jobTask);
     }
 
     public List<JobTask> getJobs(){

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 JobTask task = mJobQueue.getNext();
                 if (task != null) {
-                    mJobQueue.cancel(task);
+                    mJobQueue.remove(task);
                 }
             }
         });
