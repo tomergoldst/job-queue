@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 
 import java.util.List;
 
+import static com.tomergoldst.jobqueue.Preconditions.checkNotNull;
+
 /**
  * Created by Tomer on 18/03/2017.
  */
@@ -32,7 +34,8 @@ public class JobQueue {
         return mInstance;
     }
 
-    public void add(JobTask jobTask){
+    public void add(@NonNull JobTask jobTask){
+        checkNotNull(jobTask, "job task cannot be null");
         DatabaseManager.getInstance().storeJob(mContext, jobTask);
     }
 
@@ -42,6 +45,7 @@ public class JobQueue {
     }
 
     public void remove(@NonNull JobTask jobTask){
+        checkNotNull(jobTask, "job task cannot be null");
         DatabaseManager.getInstance().deleteJob(mContext, jobTask);
     }
 
