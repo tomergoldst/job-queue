@@ -1,5 +1,6 @@
 package com.tomergoldst.jobqueue;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,35 +13,52 @@ import java.util.List;
 
 public class JobQueue {
 
+    @SuppressLint("StaticFieldLeak")
+    private static JobQueue mInstance;
+
+    private final Context mContext;
+
     private static final String TAG = JobQueue.class.getSimpleName();
 
-    public static void add(Context context, JobTask jobTask){
-        DatabaseManager.getInstance().storeJob(context, jobTask);
+    private JobQueue(Context context) {
+        mContext = context.getApplicationContext();
+    }
+
+    public static synchronized JobQueue getInstance(Context context){
+        if (mInstance == null){
+            mInstance = new JobQueue(context);
+        }
+
+        return mInstance;
+    }
+
+    public void add(JobTask jobTask){
+        DatabaseManager.getInstance().storeJob(mContext, jobTask);
     }
 
     @Nullable
-    public static JobTask getNext(Context context){
-        return DatabaseManager.getInstance().getNextJob(context);
+    public JobTask getNext(){
+        return DatabaseManager.getInstance().getNextJob(mContext);
     }
 
-    public static void cancel(Context context, @NonNull JobTask jobTask){
-        DatabaseManager.getInstance().deleteJob(context, jobTask);
+    public void cancel(@NonNull JobTask jobTask){
+        DatabaseManager.getInstance().deleteJob(mContext, jobTask);
     }
 
-    public static void clear(Context context){
-        DatabaseManager.getInstance().clear(context);
+    public void clear(){
+        DatabaseManager.getInstance().clear(mContext);
     }
 
-    public static void Completed(Context context, JobTask jobTask){
-        cancel(context, jobTask);
+    public void Completed(JobTask jobTask){
+        cancel(jobTask);
     }
 
-    public static List<JobTask> getJobs(Context context){
-        return DatabaseManager.getInstance().getJobs(context);
+    public List<JobTask> getJobs(){
+        return DatabaseManager.getInstance().getJobs(mContext);
     }
 
-    public static List<JobTask> getJob(Context context, String name){
-        return DatabaseManager.getInstance().getJob(context, name);
+    public List<JobTask> getJob(String name){
+        return DatabaseManager.getInstance().getJob(mContext, name);
     }
 
 }
