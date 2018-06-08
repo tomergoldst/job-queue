@@ -3,7 +3,7 @@ Persisted job queue for android.
 
 Light and easy to use
 
-## Instructions
+## Dependency
 Add a dependency to your app build.gradle
 ```groovy
 dependencies {
@@ -11,6 +11,7 @@ dependencies {
 }
 ```
 
+## Instructions
 add a job to queue:
 ```java
 JobTask jobTask = new JobTask("myJobName", "myJobData")
