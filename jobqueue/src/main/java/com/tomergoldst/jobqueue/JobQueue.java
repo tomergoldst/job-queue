@@ -61,4 +61,8 @@ public class JobQueue {
         return DatabaseManager.getInstance().getJob(mContext, name);
     }
 
+    public long size(){
+        return DatabaseManager.getInstance().size(mContext);
+    }
+
 }

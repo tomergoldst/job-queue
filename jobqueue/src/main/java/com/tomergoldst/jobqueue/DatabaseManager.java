@@ -133,5 +133,18 @@ class DatabaseManager {
         return items;
     }
 
+    /**
+     * get all jobs on queue with the name provided
+     * @param ctx context
+     * @return
+     */
+    synchronized long size(Context ctx) {
+        JobQueueDao jobQueueDao = JobQueueDao.getInstance(ctx);
+        jobQueueDao.open();
+        long size = jobQueueDao.size();
+        jobQueueDao.close();
+        return size;
+    }
+
 
 }
