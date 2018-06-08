@@ -40,8 +40,19 @@ public class JobQueue {
     }
 
     @Nullable
-    public JobTask getNext(){
+    public JobTask next(){
         return DatabaseManager.getInstance().getNextJob(mContext);
+    }
+
+    @Nullable
+    public JobTask pop(){
+        JobTask jobTask = next();
+        if (jobTask == null) {
+            return null;
+        }
+
+        DatabaseManager.getInstance().deleteJob(mContext, jobTask);
+        return jobTask;
     }
 
     public void remove(@NonNull JobTask jobTask){

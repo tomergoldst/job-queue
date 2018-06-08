@@ -1,5 +1,6 @@
 # JobQueue
 Persisted job queue for android.
+
 Light and easy to use
 
 ## Instructions
@@ -18,7 +19,12 @@ JobQueue.getInstance(this).add(jobTask);
 
 get next job on queue::
 ```java
-JobQueue.getInstance(this).getNext();
+JobQueue.getInstance(this).next();
+```
+
+get next job and remove it from queue::
+```java
+JobQueue.getInstance(this).pop();
 ```
 
 remove job from queue::
