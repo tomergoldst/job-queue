@@ -1,79 +1,69 @@
 package com.tomergoldst.jobqueue;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.List;
 
-import static com.tomergoldst.jobqueue.Preconditions.checkNotNull;
-
-/**
- * Created by Tomer on 18/03/2017.
- */
-
 public class JobQueue {
 
-    @SuppressLint("StaticFieldLeak")
-    private static JobQueue mInstance;
+    private static Client sClient = null;
 
-    private final Context mContext;
-
-    private static final String TAG = JobQueue.class.getSimpleName();
-
-    private JobQueue(Context context) {
-        mContext = context.getApplicationContext();
-    }
-
-    public static synchronized JobQueue getInstance(Context context){
-        if (mInstance == null){
-            mInstance = new JobQueue(context);
+    /**
+     * Gets the default instance.
+     *
+     * @return default instance
+     */
+    private static Client getInstance() {
+        if (sClient == null){
+            sClient = new Client();
         }
-
-        return mInstance;
+        return sClient;
     }
 
-    public void add(@NonNull JobTask jobTask){
-        checkNotNull(jobTask, "job task cannot be null");
-        DatabaseManager.getInstance().storeJob(mContext, jobTask);
+    /**
+     * Initialize the SDK with the Android app context
+     * Initializing is required before calling other methods.
+     *
+     * @param context context
+     */
+    public static void initialize(Context context) {
+        getInstance().initialize(context);
+    }
+
+    public static void add(@NonNull String queueUid, @NonNull JobTask jobTask){
+        getInstance().add(queueUid, jobTask);
     }
 
     @Nullable
-    public JobTask next(){
-        return DatabaseManager.getInstance().getNextJob(mContext);
+    public static JobTask peek(@NonNull String queueUid){
+        return getInstance().peek(queueUid);
     }
 
     @Nullable
-    public JobTask pop(){
-        JobTask jobTask = next();
-        if (jobTask == null) {
-            return null;
-        }
-
-        DatabaseManager.getInstance().deleteJob(mContext, jobTask);
-        return jobTask;
+    public static JobTask pop(@NonNull String queueUid){
+        return getInstance().pop(queueUid);
     }
 
-    public void remove(@NonNull JobTask jobTask){
-        checkNotNull(jobTask, "job task cannot be null");
-        DatabaseManager.getInstance().deleteJob(mContext, jobTask);
+    public static void remove(@NonNull JobTask jobTask){
+        getInstance().remove(jobTask);
     }
 
-    public void clear(){
-        DatabaseManager.getInstance().clear(mContext);
+    public static void clear(@NonNull String queueUid){
+        getInstance().clear(queueUid);
     }
 
-    public List<JobTask> getJobs(){
-        return DatabaseManager.getInstance().getJobs(mContext);
+    public static List<JobTask> getJobs(@NonNull String queueUid){
+        return getInstance().getJobs(queueUid);
     }
 
-    public List<JobTask> getJob(String name){
-        return DatabaseManager.getInstance().getJob(mContext, name);
+    public static List<JobTask> getJob(@NonNull String queueUid, String name){
+        return getInstance().getJob(queueUid, name);
     }
 
-    public long size(){
-        return DatabaseManager.getInstance().size(mContext);
+    public static long size(@NonNull String queueUid){
+        return getInstance().size(queueUid);
     }
 
 }

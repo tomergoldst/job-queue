@@ -2,9 +2,9 @@ package com.tomergoldst.jobqueue;
 
 import android.support.annotation.Nullable;
 
-public class Preconditions {
+class Preconditions {
 
-    public static <T> T checkNotNull(T reference) {
+    static <T> T checkNotNull(T reference) {
         if (reference == null) {
             throw new NullPointerException();
         } else {
@@ -12,7 +12,7 @@ public class Preconditions {
         }
     }
 
-    public static <T> T checkNotNull(T reference, @Nullable Object errorMessage) {
+    static <T> T checkNotNull(T reference, @Nullable Object errorMessage) {
         if (reference == null) {
             throw new NullPointerException(String.valueOf(errorMessage));
         } else {
