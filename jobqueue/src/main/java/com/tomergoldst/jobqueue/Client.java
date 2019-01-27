@@ -47,16 +47,29 @@ class Client {
         mRepository.deleteJob(jobTask);
     }
 
-    void clear(@NonNull String queueUid){
+    void update(@NonNull JobTask jobTask){
+        checkNotNull(jobTask, "job task cannot be null");
+        mRepository.updateJob(jobTask);
+    }
+
+    void remove(@NonNull String queueUid, @NonNull String jobTaskName){
+        mRepository.deleteJob(queueUid, jobTaskName);
+    }
+
+    void clearQueue(@NonNull String queueUid){
         mRepository.clear(queueUid);
+    }
+
+    void clearAll(){
+        mRepository.clear();
     }
 
     List<JobTask> getJobs(@NonNull String queueUid){
         return mRepository.getJobs(queueUid);
     }
 
-    List<JobTask> getJob(@NonNull String queueUid, String name){
-        return mRepository.getJob(DEFAULT_QUEUE_UID, name);
+    List<JobTask> getJob(@NonNull String queueUid, String jobTaskName){
+        return mRepository.getJob(DEFAULT_QUEUE_UID, jobTaskName);
     }
 
     long size(@NonNull String queueUid){

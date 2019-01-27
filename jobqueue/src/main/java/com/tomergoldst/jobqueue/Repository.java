@@ -49,8 +49,8 @@ final class Repository implements RepositoryDataSource {
     }
 
     @Override
-    public void deleteJob(@NonNull String queueUid, @NonNull String name) {
-        mJobQueueDao.delete(queueUid, name);
+    public void deleteJob(@NonNull String queueUid, @NonNull String jobTaskName) {
+        mJobQueueDao.delete(queueUid, jobTaskName);
     }
 
     @Override
@@ -79,8 +79,8 @@ final class Repository implements RepositoryDataSource {
     }
 
     @Override
-    public List<JobTask> getJob(@NonNull String queueUid, @NonNull String name) {
-        return mJobQueueDao.getJob(queueUid, name);
+    public List<JobTask> getJob(@NonNull String queueUid, @NonNull String jobTaskName) {
+        return mJobQueueDao.getJob(queueUid, jobTaskName);
     }
 
     @Override

@@ -50,16 +50,28 @@ public class JobQueue {
         getInstance().remove(jobTask);
     }
 
-    public static void clear(@NonNull String queueUid){
-        getInstance().clear(queueUid);
+    public static void remove(@NonNull String queueUid, @NonNull String jobTaskName){
+        getInstance().remove(queueUid, jobTaskName);
+    }
+
+    public static void update(@NonNull JobTask jobTask){
+        getInstance().update(jobTask);
+    }
+
+    public static void clearQueue(@NonNull String queueUid){
+        getInstance().clearQueue(queueUid);
+    }
+
+    public static void clearAll(){
+        getInstance().clearAll();
     }
 
     public static List<JobTask> getJobs(@NonNull String queueUid){
         return getInstance().getJobs(queueUid);
     }
 
-    public static List<JobTask> getJob(@NonNull String queueUid, String name){
-        return getInstance().getJob(queueUid, name);
+    public static List<JobTask> getJob(@NonNull String queueUid, String jobTaskName){
+        return getInstance().getJob(queueUid, jobTaskName);
     }
 
     public static long size(@NonNull String queueUid){
