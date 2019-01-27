@@ -1,61 +1,78 @@
 # JobQueue
 Persisted job queue for android.
 
+Manage your jobs flow by working with a queue. You can create as many queues as you need
+
 Light and easy to use
 
 ## Dependency
 Add a dependency to your app build.gradle
 ```groovy
 dependencies {
-    compile 'com.tomergoldst.android:jobqueue:1.1.1'
-}
+    compile 'com.tomergoldst.android:jobqueue:2.0.0'
+}m
 ```
 
 ## Instructions
+
+Init JobQueue at your application class onCreate()
+```java
+public class MyApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        JobQueue.initialize(this);
+    }
+}
+```
+
 add a job to queue:
 ```java
+final String NETWORK_QUEUE = "network_queue"
 JobTask jobTask = new JobTask("myJobName", "myJobData")
-JobQueue.getInstance(this).add(jobTask);
+JobQueue.add(NETWORK_QUEUE, jobTask);
 ```
 
-get next job on queue::
+pop next job:
 ```java
-JobQueue.getInstance(this).next();
+JobTask jobTask = JobQueue.pop(NETWORK_QUEUE);
 ```
 
-get next job and remove it from queue::
+peek on next job:
 ```java
-JobQueue.getInstance(this).pop();
+JobTask jobTask = JobQueue.peek(NETWORK_QUEUE);
 ```
 
-remove job from queue::
+remove job from queue:
 ```java
-JobQueue.getInstance(this).remove(jobTask);
+JobQueue.remove(jobTask);
 ```
 
-remove all jobs from queue::
+remove all jobs from queue:
 ```java
-JobQueue.getInstance(this).clear();
+JobQueue.clearQueue(NETWORK_QUEUE);
 ```
 
-get all jobs on queue::
+get all jobs on queue:
 ```java
-List<JobTask> tasks = JobQueue.getInstance(this).getJobs();
+List<JobTask> tasks = JobQueue.getJobs(NETWORK_QUEUE);
 ```
 
-get all jobs of the same task on queue::
+get all jobs of the same task on queue:
 ```java
-List<JobTask> jobs = JobQueue.getInstance(this).getJob("myJobName");
+List<JobTask> jobs = JobQueue.getJob(NETWORK_QUEUE, "myJobName");
 ```
 
 get queue size:
 ```java
-long size = JobQueue.getInstance(this).size();
+long size = JobQueue.size(NETWORK_QUEUE);
 ```
 
 ### License
 ```
-Copyright 2016 Tomer Goldstein
+Copyright 2019 Tomer Goldstein
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

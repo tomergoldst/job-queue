@@ -26,12 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // initialize Stetho for database debug purpose
-        Stetho.initializeWithDefaults(getApplicationContext());
-
-        // initialize JobQueue library
-        JobQueue.initialize(getApplicationContext());
-
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
