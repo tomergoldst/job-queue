@@ -2,12 +2,12 @@ package com.tomergoldst.jobqueuedemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.facebook.stetho.Stetho;
 import com.tomergoldst.jobqueue.JobQueue;
 import com.tomergoldst.jobqueue.JobTask;
 
@@ -19,7 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String QUEUE_2 = "queue2";
     private static final String QUEUE_3 = "queue3";
 
-    private String mCurrentQueue;
+    private String mCurrentQueueUid;
+
+    private AppCompatTextView mQueue1SizeTxv;
+    private AppCompatTextView mQueue2SizeTxv;
+    private AppCompatTextView mQueue3SizeTxv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +34,21 @@ public class MainActivity extends AppCompatActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radioButtonQueue1) mCurrentQueue = QUEUE_1;
-                else if (checkedId == R.id.radioButtonQueue2) mCurrentQueue = QUEUE_2;
-                else mCurrentQueue = QUEUE_3;
+                if (checkedId == R.id.radioButtonQueue1) mCurrentQueueUid = QUEUE_1;
+                else if (checkedId == R.id.radioButtonQueue2) mCurrentQueueUid = QUEUE_2;
+                else mCurrentQueueUid = QUEUE_3;
             }
         });
 
         radioGroup.check(R.id.radioButtonQueue1);
+
+        mQueue1SizeTxv = findViewById(R.id.textQueue1Size);
+        mQueue2SizeTxv = findViewById(R.id.textQueue2Size);
+        mQueue3SizeTxv = findViewById(R.id.textQueue3Size);
+
+        mQueue1SizeTxv.setText(String.valueOf(JobQueue.size(QUEUE_1)));
+        mQueue2SizeTxv.setText(String.valueOf(JobQueue.size(QUEUE_2)));
+        mQueue3SizeTxv.setText(String.valueOf(JobQueue.size(QUEUE_3)));
 
         Button addJobBtn = findViewById(R.id.button_add_job);
         Button popBtn = findViewById(R.id.button_pop);
@@ -47,14 +59,16 @@ public class MainActivity extends AppCompatActivity {
         addJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JobQueue.add(mCurrentQueue, new JobTask("myJobName", "myJobData"));
+                JobQueue.add(mCurrentQueueUid, new JobTask("myJobName", "myJobData"));
+                updateQueueSize(mCurrentQueueUid);
             }
         });
 
         cancelAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JobQueue.clearQueue(mCurrentQueue);
+                JobQueue.clearQueue(mCurrentQueueUid);
+                updateQueueSize(mCurrentQueueUid);
             }
         });
 
@@ -62,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,
-                        "Queue size = " + JobQueue.size(mCurrentQueue),
+                        "Queue size = " + JobQueue.size(mCurrentQueueUid),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -70,22 +84,37 @@ public class MainActivity extends AppCompatActivity {
         popBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JobTask jobTask = JobQueue.pop(mCurrentQueue);
+                JobTask jobTask = JobQueue.pop(mCurrentQueueUid);
                 Toast.makeText(MainActivity.this,
                         jobTask != null ? jobTask.toString() : "Empty",
                         Toast.LENGTH_SHORT).show();
+                updateQueueSize(mCurrentQueueUid);
             }
         });
 
         peekBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JobTask jobTask = JobQueue.peek(mCurrentQueue);
+                JobTask jobTask = JobQueue.peek(mCurrentQueueUid);
                 Toast.makeText(MainActivity.this,
                         jobTask != null ? jobTask.toString() : "Empty",
                         Toast.LENGTH_SHORT).show();
             }
         });
 
+    }
+
+    private void updateQueueSize(String currentQueueUid){
+        switch (currentQueueUid) {
+            case QUEUE_1:
+                mQueue1SizeTxv.setText(String.valueOf(JobQueue.size(QUEUE_1)));
+                break;
+            case QUEUE_2:
+                mQueue2SizeTxv.setText(String.valueOf(JobQueue.size(QUEUE_2)));
+                break;
+            default:
+                mQueue3SizeTxv.setText(String.valueOf(JobQueue.size(QUEUE_3)));
+                break;
+        }
     }
 }
