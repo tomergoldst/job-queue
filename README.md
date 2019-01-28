@@ -10,7 +10,7 @@ Add a dependency to your app build.gradle
 ```groovy
 dependencies {
     compile 'com.tomergoldst.android:jobqueue:2.0.0'
-}m
+}
 ```
 
 ## Instructions
@@ -57,7 +57,7 @@ JobQueue.clearQueue(NETWORK_QUEUE);
 
 get all jobs on queue:
 ```java
-List<JobTask> tasks = JobQueue.getJobs(NETWORK_QUEUE);
+List<JobTask> jobs = JobQueue.getJobs(NETWORK_QUEUE);
 ```
 
 get all jobs of the same task on queue:
