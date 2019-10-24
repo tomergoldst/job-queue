@@ -1,6 +1,6 @@
 package com.tomergoldst.jobqueue;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 class Preconditions {
 
