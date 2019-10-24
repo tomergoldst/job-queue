@@ -9,7 +9,7 @@ Light and easy to use
 Add a dependency to your app build.gradle
 ```groovy
 dependencies {
-    compile 'com.tomergoldst.android:jobqueue:2.0.0'
+    compile 'com.tomergoldst.android:jobqueue:2.0.1'
 }
 ```
 
